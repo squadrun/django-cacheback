@@ -24,7 +24,9 @@ class QuerySetJob(Job):
         )
 
     def get_constructor_kwargs(self):
-        return {'model': self.model,
+        app_label, model_name = self.model._meta.app_label, self.model._meta.model_name
+
+        return {'model': [app_label, model_name],
                 'lifetime': self.lifetime}
 
 
