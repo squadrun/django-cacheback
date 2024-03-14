@@ -73,7 +73,9 @@ class QuerySetJob(Job):
             self.task_options = task_options
 
     def get_init_kwargs(self):
-        return {'model': self.model,
+        app_label, model_name = self.model._meta.app_label, self.model._meta.model_name
+
+        return {'model': [app_label, model_name],
                 'lifetime': self.lifetime,
                 'cache_alias': self.cache_alias}
 
