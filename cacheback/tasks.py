@@ -1,5 +1,8 @@
+import logging
 from celery import shared_task
 from django.apps import apps
+
+logger = logging.getLogger("cacheback")
 
 @shared_task
 def refresh_cache(klass_str, obj_args, obj_kwargs, call_args, call_kwargs):
