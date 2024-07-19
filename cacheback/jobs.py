@@ -38,7 +38,11 @@ class FunctionJob(Job):
         """
         # We don't need to pass fetch_on_miss as it isn't used by the refresh
         # method.
-        return {'lifetime': self.lifetime, 'cache_alias': self.cache_alias}
+
+        app_label, model_name = self.model._meta.app_label, self.model._meta.model_name
+        return {'model': [app_label, model_name],
+                'lifetime': self.lifetime,
+                'cache_alias': self.cache_alias}
 
     def prepare_args(self, fn, *args):
         # Convert function into "module:name" form so that is can be pickled and
